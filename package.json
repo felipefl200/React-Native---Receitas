@@ -5,7 +5,7 @@
   "scripts": {
     "start": "expo start",
     "start:dev": "concurrently \"npm run start\" \"npm run server\"",
-    "server": "npx json-server --watch -d 180 --host localhost db.json",
+    "server": "npx json-server --watch -d 180 --host 192.168.1.4 db.json",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web"
@@ -20,7 +20,8 @@
     "react": "18.2.0",
     "react-native": "0.71.6",
     "react-native-safe-area-context": "4.5.0",
-    "react-native-screens": "~3.20.0"
+    "react-native-screens": "~3.20.0",
+    "expo-linear-gradient": "~12.1.2"
   },
   "devDependencies": {
     "concurrently": "^8.0.1",

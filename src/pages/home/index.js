@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import api from "../../services/api"
 import {
   View,
   Text,
@@ -6,14 +7,26 @@ import {
   SafeAreaView,
   TextInput,
   TouchableOpacity,
+  FlatList,
 } from "react-native"
 
 import { Ionicons } from "@expo/vector-icons"
 
 import { Logo } from "../../components/logo"
+import { FoodList } from "../../components/foodlist"
 
 export function Home() {
   const [inputValue, setInputValue] = useState("")
+  const [foods, setFoods] = useState([])
+
+  useEffect(() => {
+    async function fetchApi() {
+      const response = await api.get("http://192.168.1.4:3000/foods")
+      // console.log(response.data)
+      setFoods(response.data)
+    }
+    fetchApi()
+  }, [])
 
   function handleSearch() {
     console.log("clicou")
@@ -35,6 +48,11 @@ export function Home() {
           <Ionicons name="search" size={28} color="#4cbe6c" />
         </TouchableOpacity>
       </View>
+      <FlatList
+        data={foods}
+        keyExtractor={(item) => String(item.id)}
+        renderItem={({item}) => <FoodList data={item} />}
+      />
     </SafeAreaView>
   )
 }
